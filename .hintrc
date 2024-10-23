@@ -10,6 +10,15 @@
           "script[type=module]"
         ]
       }
+    ],
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "grid-template-columns",
+          "display: grid"
+        ]
+      }
     ]
   }
 }

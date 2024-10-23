@@ -7,21 +7,33 @@
   font-family: "Roboto", sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888585;
+}
+
 body {
   background-color: #f3f1f1;
 }
 
 .logo-container img {
   height: 50px;
-  width: 80px;
+  
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20 40px;
-  background: #fff;
+  padding: 10px 4vw;
+  background: #ffffff;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  top: 0;
 }
 
 .nav-items ul {
@@ -29,38 +41,45 @@ body {
   gap: 40px;
   list-style: none;
   margin: 0;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.nav-link{
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
 }
 
 .body {
   padding: 2vw;
+  margin-top: 5vw;
 }
 
 .res-container {
-  padding: 2vw 3vw;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 2vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 3vw;
   align-items: center;
-  justify-content: space-between;
 }
 
 .res-card {
-  height: fit-content;
-  width: 270px;
+  height: 20rem;
+  width: 20vw;
   padding: 12px;
   border-radius: 10px;
   background: #d1d0d0;
-  /* border: 1px solid black; */
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
 
-.res-card:hover{
-    scale: 0.99;
+.res-card:hover {
+  scale: 0.99;
 }
 
 .res-card img {
-  height: 27vh;
+  height: 60%;
   border-radius: 10px;
   width: 100%;
   object-fit: cover;
@@ -72,28 +91,156 @@ body {
   color: #222;
 }
 
-.res-details{
-    padding-top: 10px;
-    padding-left: 3px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+.res-details {
+  padding-top: 10px;
+  padding-left: 3px;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.restaurant-link{
+  text-decoration: none;
+  color: inherit;
 }
 
 .res-card .res-details .rating span {
   font-weight: 600;
 }
 
-.food-location{
-    font-size: 0.93rem;
-    color: #444;
+.food-location {
+  font-size: 0.93rem;
+  color: #444;
+  height: 50px;
+  overflow: hidden;
+
 }
 
-.search {
+.food-choice{
+  height: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.location{
+  height: 50%;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 2.5vw 0 2vw;
+}
+
+.search{
+  display: flex;
+  gap: 1vw;
+}
+
+.search-input {
   padding: 10px;
-  margin-left: 3vw;
   border: 2px solid grey;
+  width: 20vw;
+  outline: none;
+  border-radius: 6px;
+}
+
+.button{
+  padding: 10px;
+  cursor: pointer;
+  border: 2px solid grey;
+  border-radius: 6px;
+  transition: all 0.1s ease;
+}
+
+.button:hover{
+  background-color: #c0bebe;
+  border: 2px solid #c0bebe;
+}
+
+
+.buttons {
+  display: flex;
+  gap: 1vw;
+}
+
+.shimmer-component {
+  padding: 2vw;
+  margin-top: 5vw;
+  overflow: hidden;
+}
+
+.shimmer-filters{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 2.5vw 0 2vw;
+}
+
+.shimmer-input{
+  height: 40px;
+  border: none;
+  background-color: #c5c5c5dd;
   width: 30%;
   outline: none;
   border-radius: 6px;
+}
+
+.shimmer-buttons{
+  display: flex;
+  gap: 1vw;
+}
+
+
+.shimmer-cards{
+  padding: 2vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3vw;
+  align-items: center;
+}
+
+.shimmer-filter-btn, .shimmer-reset-filter{
+  border-radius: 6px;
+  background: #c5c5c5dd;
+  height: 40px;
+  width: 90px;
+}
+
+.shimmer-card{
+  height: 20rem;
+  width: 20vw;
+  border-radius: 10px;
+  background: #c5c5c5dd;
+}
+
+.error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f0f0; /* Light grey background */
+  color: #333; /* Dark grey text */
+  text-align: center;
+}
+
+
+.error-page h1 {
+  font-size: 5rem;
+  margin: 0;
+  color: #555; /* Medium grey for the main error code */
+}
+
+.error-page h2 {
+  font-size: 2rem;
+  color: #666; /* Lighter grey for the subtitle */
+}
+
+.error-page p {
+  font-size: 1.2rem;
+  color: #777; /* Even lighter grey for the paragraph text */
 }

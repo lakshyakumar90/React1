@@ -8,7 +8,10 @@ import ContactUs from "./Components/ContactUs";
 import Cart from "./Components/Cart";
 import Error from "./Components/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
+
 const AppLayout = () => {
+
+
   return (
     <div className="app">
       <Header />
@@ -24,28 +27,28 @@ const appRouter = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path:"/",
-        element: <Body />
+        path: "/",
+        element: <Body />,
       },
       {
-        path:"/about",
-        element: <About />
+        path: "/about",
+        element: <About />,
       },
       {
-        path:"/contact",
-        element: <ContactUs />
+        path: "/contact",
+        element: <ContactUs />,
       },
       {
-        path:"/cart",
-        element: <Cart />
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/restaurants/:resId",
-        element: <RestaurantMenu />
-      }
-    ]
+        element: <RestaurantMenu />,
+      },
+    ],
   },
-])
+]);
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 root.render(<RouterProvider router={appRouter} />);

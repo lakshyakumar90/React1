@@ -267,7 +267,7 @@ body {
 .offer-icon {
   font-size: 3.5rem;
   margin-top: 0.4rem;
-  color: #6d6c6c;
+  color: #e76012;
 }
 
 li {
@@ -345,7 +345,7 @@ li {
   border-radius: 1.2rem;
   height: 5rem;
   font-weight: 600;
-  border: 1px solid rgb(209, 209, 209);
+  border: 1.6px solid rgb(209, 209, 209);
   display: flex;
   align-items: center;
   height: var(--slide-height);
@@ -447,27 +447,92 @@ li {
   width: 75%;
 }
 
-.carousel-div h2{
+.carousel-div h2 {
   margin-bottom: 1rem;
   font-size: 1.3rem;
 }
 
-.menu-dishes{
+.menu-dishes {
   margin-top: 3rem;
 }
 
-.menu-search{
+.menu-search-div {
+  position: relative;
+  margin: 3rem 0 2rem 0;
+}
+
+.menu-search {
   width: 100%;
   height: 3rem;
   border-radius: 1rem;
   outline: none;
-  margin: 1rem 0 2rem 0;
   border: none;
   background-color: #cecccc;
   padding: 10px;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.menu-search::placeholder{
-  font-size: 0.9rem;
+.search-icon {
+  position: absolute;
+  right: 1.5rem;
+  top: 0.9rem;
+  font-size: 1.2rem;
+}
+
+.picks__slide__number {
+  height: 18rem;
+  box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
+  border-radius: 1.2rem;
+  font-weight: 600;
+  border: 1.6px solid rgb(209, 209, 209);
+  display: flex;
+  align-items: center;
+  height: var(--slide-height);
+  overflow: hidden;
+  position: relative;
+}
+
+.picks__slide__number h1 {
+  position: absolute;
+  font-size: 1rem;
+}
+
+.picks__slide__number img {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  object-fit: cover;
+}
+
+.picks-slide-add {
+  position: absolute;
+  bottom: 1vw;
+  color: #fff;
+  padding: 0 1.5vw;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.picks-slide-add h2{
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.rupee-symbol{
+  margin-bottom: -0.2rem;
+}
+
+.dish-add-button{
+  border: none;
+  padding: 7px 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #fff;
+  color: rgb(8, 192, 8);
+  font-size: 1.2rem;
+  font-weight: 700;
 }

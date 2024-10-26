@@ -1,15 +1,15 @@
 import React from "react";
-import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
+import { DotButton, useDotButton } from "../Buttons/EmblaCarouselDotButton";
 import {
   PrevButton,
   NextButton,
   usePrevNextButtons,
-} from "./EmblaCarouselArrowButtons";
+} from "../Buttons/EmblaCarouselArrowButtons";
 import useEmblaCarousel from "embla-carousel-react";
 import { BiSolidOffer } from "react-icons/bi";
 
-const EmblaCarousel = (props) => {
-  const { offerInfo, options } = props;
+const OfferCarousel = (props) => {
+  const { info, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
@@ -34,7 +34,7 @@ const EmblaCarousel = (props) => {
 
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {offerInfo.map((offer) => (
+          {info.map((offer) => (
             <div className="embla__slide" key={offer.info.id}>
               <div className="embla__slide__number">
                 <div>
@@ -53,4 +53,4 @@ const EmblaCarousel = (props) => {
   );
 };
 
-export default EmblaCarousel;
+export default OfferCarousel;

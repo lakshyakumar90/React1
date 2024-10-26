@@ -1,8 +1,8 @@
 import RestaurantCard from "./RestaurantCard";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Shimmer from "./Shimmer";
-import Button from "./Button";
+import Shimmer from "../../utils/Shimmer";
+import Button from "../Buttons/Button";
 import { Link } from "react-router-dom";
 
 export const Body = () => {
@@ -16,7 +16,7 @@ export const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.3164945&lng=78.03219179999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
+      `https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.315901751287292&lng=78.0372558106201&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`
     );
     const json = await data.json();
     const restaurants =

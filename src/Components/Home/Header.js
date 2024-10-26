@@ -1,14 +1,20 @@
 import { useState } from "react";
-import Button from "./Button";
-import myImage from "../../media/logo_size.jpg";
-import { NavLink } from "react-router-dom";
+import Button from "../Buttons/Button";
+import myImage from "../../../media/logo_size.jpg";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate('/', { replace: true });
+    navigate(0); // Triggers a full page reload
+  };
   return (
     <div className="header">
       <div className="logo-container">
-        <img src={myImage}></img>
+        <Link to={"/"} onClick={handleHomeClick}><img src={myImage}></img></Link>
       </div>
       <div className="nav-items">
         <ul>
@@ -20,6 +26,7 @@ const Header = () => {
                 textDecoration: isActive ? "underline" : "none",
               })}
               className="nav-link"
+              onClick={handleHomeClick}
             >
               Home
             </NavLink>

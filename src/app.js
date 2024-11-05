@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Home/Header";
 import Body from "./Components/Home/Body";
@@ -8,13 +8,51 @@ import ContactUs from "./Components/Contact Us/ContactUs";
 import Cart from "./Components/Cart/Cart";
 import Error from "./utils/Error";
 import RestaurantMenu from "./Components/Home/RestaurantMenu";
+import useOnlineStatus from "./utils/useOnlineStatus";
+import Shimmer from "./utils/Shimmer";
+import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/Redux store/appStore";
+
+
+//CHUNKING
+//CODE SPLITTING
+//DYNAMIC BUNDLING
+//LAZY LOADING
+//ON DEMAND LOADING
+//DYNAMIC IMPORT
+
+const Grocery = lazy(() => import("./Components/Grocery"));
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  //if there is authentication and userdata comes here => Here's how we can alter the UserContext component:
+  useEffect(() => {
+    const data = {
+      name: "Lakshya",
+      password: "********",
+    };
+    setUserName(data.name);
+  }, []);
+
+  const onlineStatus = useOnlineStatus();
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName }}>
+        <div className="app">
+          <div className="app-status">
+            {onlineStatus ? (
+              <span className="app-status-online">"🟢"</span>
+            ) : (
+              <span className="app-status-offline"> "🔴"</span>
+            )}
+          </div>
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -43,6 +81,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/restaurants/:resId",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Grocery />
+          </Suspense>
+        ),
       },
     ],
   },

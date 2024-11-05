@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Red Hat Text", sans-serif;
+  /* font-family: "Red Hat Text", sans-serif; */
 }
 
 ::-webkit-scrollbar {
@@ -14,6 +18,43 @@
 
 ::-webkit-scrollbar-thumb {
   background: #888585;
+}
+
+.app-status{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  cursor: pointer;
+  scale: 0.7;
+}
+
+
+.app-status-online:hover::after {
+  content: " Online"; 
+  position: absolute;
+  bottom: 100%; 
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #555; 
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  white-space: nowrap; 
+  z-index: 3; 
+}
+
+.app-status-offline:hover::after {
+  content: " Offline"; position: absolute;
+  bottom: 100%; 
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #555; 
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  white-space: nowrap; 
+  z-index: 3; 
 }
 
 body {
@@ -303,6 +344,7 @@ li {
   --slide-size-sm: 50%;
   --slide-spacing-lg: 2rem;
   --slide-size-lg: calc(100% / 3);
+  margin-bottom: 3rem;
 }
 .embla__viewport {
   overflow: hidden;
@@ -344,6 +386,7 @@ li {
   box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
   border-radius: 1.2rem;
   height: 5rem;
+  cursor: pointer;
   font-weight: 600;
   border: 1.6px solid rgb(209, 209, 209);
   display: flex;
@@ -492,6 +535,7 @@ li {
   height: var(--slide-height);
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 }
 
 .picks__slide__number h1 {
@@ -517,16 +561,18 @@ li {
   justify-content: space-between;
 }
 
-.picks-slide-add h2{
+.picks-slide-add h2 {
+  display: flex;
+  align-items: center;
   font-size: 1.2rem;
   font-weight: 500;
 }
 
-.rupee-symbol{
+.rupee-symbol {
   margin-bottom: -0.2rem;
 }
 
-.dish-add-button{
+.dish-add-button {
   border: none;
   padding: 7px 20px;
   cursor: pointer;
@@ -535,4 +581,144 @@ li {
   color: rgb(8, 192, 8);
   font-size: 1.2rem;
   font-weight: 700;
+  box-shadow: 0 0 20px #0003;
+}
+
+.collapsible {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+}
+
+.collapsible-btn {
+  width: 100%;
+  text-align: left;
+  font-size: 1.4rem;
+  font-weight: 900;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.category-collapsible-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.dropdown-arrow {
+  font-size: 1.2rem;
+  font-weight: 900;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 20px 60px 20px;
+  border-bottom: 1px solid #cecccc;
+  height: 17rem;
+}
+
+.menu-item-details {
+  width: 60%;
+}
+
+.menu-item-add {
+  width: 25%;
+  height: 100%;
+  position: relative;
+}
+
+.menu-item-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.menu-item-name {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.menu-item-price {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.menu-item-rating {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.menu-item-rating-child {
+  color: rgb(27, 166, 114);
+  display: flex;
+  align-items: center;
+}
+
+.menu-item-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.item-add-button {
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.item-add-button-noimg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+}
+
+.item-add-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.veg-icon {
+  color: rgb(8, 192, 8);
+}
+
+.non-veg-icon {
+  color: red;
+}
+
+.footer {
+  background: #d3d4d9;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer h1{
+  font-size: 1.2rem;
 }

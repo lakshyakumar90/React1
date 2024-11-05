@@ -35,7 +35,7 @@ const OfferCarousel = (props) => {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {info.map((offer) => (
-            <div className="embla__slide" key={offer.info.id}>
+            <div className="embla__slide" key={offer.info.offerIds[0]}>
               <div className="embla__slide__number">
                 <div>
                   <BiSolidOffer className="offer-icon" />

@@ -1,76 +1,48 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../Buttons/Button";
 import myImage from "../../../media/logo_size.jpg";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import Navlink from "../Small Components/Navlink";
+import UserContext from "../../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
-  const navigate = useNavigate();
+  const { loggedInUser } = useContext(UserContext);
 
-  const handleHomeClick = () => {
-    navigate('/', { replace: true });
-    navigate(0); // Triggers a full page reload
-  };
+  //Subscribing to the store using Selector
+  const cartItems = useSelector((store) => store.cart.items);
+
   return (
     <div className="header">
       <div className="logo-container">
-        <Link to={"/"} onClick={handleHomeClick}><img src={myImage}></img></Link>
+        <Link to={"/"}>
+          <img src={myImage}></img>
+        </Link>
       </div>
       <div className="nav-items">
         <ul>
           <li>
-            <NavLink
-              to="/"
-              style={({ isActive }) => ({
-                color: isActive ? "#777" : "black",
-                textDecoration: isActive ? "underline" : "none",
-              })}
-              className="nav-link"
-              onClick={handleHomeClick}
-            >
-              Home
-            </NavLink>
+            <Navlink route="/" name="Home" />
           </li>
           <li>
-            <NavLink
-              to="/about"
-              style={({ isActive }) => ({
-                color: isActive ? "#777" : "black",
-                textDecoration: isActive ? "underline" : "none",
-              })}
-              className="nav-link"
-            >
-              About
-            </NavLink>
+            <Navlink route="/about" name="About" />
           </li>
           <li>
-            <NavLink
-              to="/contact"
-              style={({ isActive }) => ({
-                color: isActive ? "#777" : "black",
-                textDecoration: isActive ? "underline" : "none",
-              })}
-              className="nav-link"
-            >
-              Contact
-            </NavLink>
+            <Navlink route="/contact" name="Contact" />
           </li>
           <li>
-            <NavLink
-              to="/cart"
-              style={({ isActive }) => ({
-                color: isActive ? "#777" : "black",
-                textDecoration: isActive ? "underline" : "none",
-              })}
-              className="nav-link"
-            >
-              Cart
-            </NavLink>
+            <Navlink route="/cart" name="Cart" /> - {cartItems.length}
+          </li>
+          <li>
+            <Navlink route="/grocery" name="Grocery" />
           </li>
           <li>
             <Button
               onClick={() =>
-                btnName === "Login" ? setBtnName("Logout") : setBtnName("Login")
+                btnName === "Login"
+                  ? setBtnName(loggedInUser)
+                  : setBtnName("Login")
               }
               props={btnName}
             />

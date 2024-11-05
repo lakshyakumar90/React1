@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
 import Shimmer from "../../utils/Shimmer";
 import { useParams } from "react-router-dom";
-import { MENU_URL } from "../../utils/constants";
 import OfferCarousel from "../Carousels/OfferCarousel";
 import { IoSearchOutline } from "react-icons/io5";
 import TopPicksCarousel from "../Carousels/TopPicksCarousel";
+import CollapsibleDiv from "../Small Components/CollapsibleDiv";
+import Footer from "../Footer/Footer";
+import useOnlineStatus from "../../utils/useOnlineStatus";
+import useRestaurantMenu from "../../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
   const { resId } = useParams();
 
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
-  const fetchMenu = async () => {
-    const response = await fetch(MENU_URL + resId);
-    const json = await response.json();
-    setResInfo(json.data);
-  };
+  const resInfo = useRestaurantMenu(resId);  //THIS IS A CUSTOM HOOK
 
   if (resInfo === null) {
     return <Shimmer />;
@@ -48,17 +41,24 @@ const RestaurantMenu = () => {
   const offerSlides = Array.from(Array(offerSlidesCount).keys());
 
   //TOP PICKS CAROUSEL
-  const topPicksSlidesCount = menuInfo.cards[1].card.card.carousel.length;
-  const topPicksSlides = Array.from(Array(topPicksSlidesCount).keys());
   const topPicks = menuInfo.cards[1].card.card;
 
+  let topPicksSlides = [];
+  if (topPicks.title === "Top Picks") {
+    const topPicksSlidesCount = topPicks.carousel.length;
+    topPicksSlides = Array.from(Array(topPicksSlidesCount).keys());
+  }
+
   //RECOMMENDED PART
-  const recommended = menuInfo.cards[2].card.card;
+  const shouldExcludeIndex1 = menuInfo.cards[1].card.card.title === "Top Picks";
+  const allCards = menuInfo.cards;
+  let mappedCards = []
+  let a = 0;
+
 
   return (
     <div style={{ marginTop: "5vw", padding: "2vw" }} className="menu">
       <div className="main-div">
-
         {/* FIRST DIV */}
         <div>
           <h1 className="restaurant-name">{name}</h1>
@@ -97,20 +97,29 @@ const RestaurantMenu = () => {
           <hr />
 
           {/* TOP PICKS DIV  */}
-          <div style={{ margin: "3vw 0" }}>
-          <TopPicksCarousel
-            info={topPicks}
-            slides={topPicksSlides}
-            options={options}
-          />
-          </div>
-          <hr />
+          {topPicks.title === "Top Picks" && (
+            <div style={{ margin: "3vw 0" }}>
+              <TopPicksCarousel
+                info={topPicks}
+                slides={topPicksSlides}
+                options={options}
+              />
+            </div>
+          )}
 
-          {/* RECOMMENDED DIV */}
-          <div>
-            
+          {/* NEXT ALL DIVS */}
+          <div style={{ margin: "3vw 0" }}>
+            {mappedCards = allCards.slice(shouldExcludeIndex1 ? 2 : 1, -2).map((card, index) => {
+              const adjustedIndex = shouldExcludeIndex1 ? index + 1 : index;
+               return (
+                  <CollapsibleDiv card={card} key={adjustedIndex} />
+               )
+            })}
           </div>
         </div>
+
+        {/* FOOTER */}
+        <Footer item={cardInfo} />
       </div>
     </div>
   );

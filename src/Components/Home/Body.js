@@ -1,18 +1,15 @@
-import RestaurantCard from "./RestaurantCard";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import RestaurantCard, { withOpen } from "./RestaurantCard";
+import React, { useEffect, useState } from "react";
 import Shimmer from "../../utils/Shimmer";
 import Button from "../Buttons/Button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import useOnlineStatus from "../../utils/useOnlineStatus";
 
 export const Body = () => {
-  //normal variable
-  // let listOfRestaurants = restaurantData;
-
-  //state variable - super powerful variable (React Hooks)
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [originalRestaurants, setOriginalRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const location = useLocation();
 
   const fetchData = async () => {
     const data = await fetch(
@@ -26,22 +23,30 @@ export const Body = () => {
     setOriginalRestaurants(restaurants);
   };
 
-  //dependency array is not compulsory and => if not then useEffect will be called everytime the component renders.
-  //if dependency is an empty array useEffect is called on initial render and only once
-  //if there is dependency array => depArray then the useEffect will be called on initial render and on dependency change
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [location]); // Refetch data when the location changes
 
-  //conditional rendering
-  // if(listOfRestaurants.length === 0) {
-  //   return <Shimmer />;
-  // }
+  useEffect(() => {
+    setSearchText(""); // Reset search text
+    setListOfRestaurants(originalRestaurants); // Reset to original restaurants
+  }, [location]);
+
+  // const RestaurantCardPromoted = withOpen(RestaurantCard);
+
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return (
+      <h1 style={{ color: "red", textAlign: "center", marginTop: "5rem" }}>
+        You are offline, please check your internet connection.{" "}
+      </h1>
+    );
+  }
+
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    //Body DIV
     <div className="body">
       <div className="filters">
         <div className="search">
@@ -50,17 +55,13 @@ export const Body = () => {
             placeholder="Search Restaurant"
             className="search-input"
             value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
+            onChange={(e) => setSearchText(e.target.value)}
           />
           <Button
             onClick={() => {
-              const searchedRestaurants = originalRestaurants.filter((res) => {
-                return res.info.name
-                  .toLowerCase()
-                  .includes(searchText.toLowerCase());
-              });
+              const searchedRestaurants = originalRestaurants.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
               setListOfRestaurants(searchedRestaurants);
             }}
             props={"Search"}
@@ -77,11 +78,8 @@ export const Body = () => {
             }}
             props={"Top Rated Restaurants"}
           />
-
           <Button
-            onClick={() => {
-              setListOfRestaurants(originalRestaurants);
-            }}
+            onClick={() => setListOfRestaurants(originalRestaurants)}
             props={"Reset Filters"}
           />
         </div>
@@ -95,6 +93,11 @@ export const Body = () => {
             key={restaurant?.info?.id}
           >
             <RestaurantCard resData={restaurant} />
+            {/* {restaurant.info.isOpen ? (
+              <RestaurantCardPromoted resData={restaurant} />
+            ) : (
+              <RestaurantCard resData={restaurant} />
+            )} */}
           </Link>
         ))}
       </div>

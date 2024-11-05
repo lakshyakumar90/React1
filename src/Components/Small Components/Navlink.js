@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Navlink = ({route, name}) => {
+const Navlink = ({route, name, cartItems}) => {
   return (
     <NavLink
       to={route}
@@ -11,7 +11,7 @@ const Navlink = ({route, name}) => {
       })}
       className="nav-link"
     >
-      {name}
+      {cartItems ? `${name}-(${cartItems.length})` : name}
     </NavLink>
   );
 };

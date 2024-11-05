@@ -32,7 +32,7 @@ const Header = () => {
             <Navlink route="/contact" name="Contact" />
           </li>
           <li>
-            <Navlink route="/cart" name="Cart" /> - {cartItems.length}
+            <Navlink route="/cart" name="Cart" cartItems={cartItems} />
           </li>
           <li>
             <Navlink route="/grocery" name="Grocery" />

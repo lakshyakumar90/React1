@@ -52,6 +52,7 @@ export const Body = () => {
         <div className="search">
           <input
             type="text"
+            data-testid="searchInput"
             placeholder="Search Restaurant"
             className="search-input"
             value={searchText}
